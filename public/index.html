@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>MovieTickets</h1>
+            <nav>
+                <button onclick="app.showMovieList()">Home</button>
+                <button onclick="app.showMyBookings()">My Bookings</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Movie List View -->
+        <section id="movie-list-view">
+            <div class="hero">
+                <div class="hero-content">
+                    <h2>Experience the Magic of Cinema</h2>
+                    <p>Book your tickets for the latest blockbusters from the comfort of your home.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="search-bar">
+                    <input type="text" id="movie-search" placeholder="Search movies..." oninput="app.filterMovies()">
+                    <select id="genre-filter" onchange="app.filterMovies()">
+                        <option value="">All Genres</option>
+                        <option value="Action">Action</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Drama">Drama</option>
+                    </select>
+                </div>
+                <h3>Now Showing</h3>
+                <div id="movies-grid" class="grid"></div>
+            </div>
+        </section>
+
+        <!-- Showtimes View -->
+        <section id="showtimes-view" class="hidden">
+            <button class="back-btn" onclick="app.showMovieList()">← Back to Movies</button>
+            <div id="selected-movie-details"></div>
+            <h3>Select a Showtime</h3>
+            <div id="showtimes-list" class="list-group"></div>
+        </section>
+
+        <!-- Seat Selection View -->
+        <section id="seat-selection-view" class="hidden">
+            <button class="back-btn" onclick="app.goBackToShowtimes()">← Back to Showtimes</button>
+            <h3>Select Seats</h3>
+            <div id="seat-booking-info"></div>
+
+            <div class="screen-container">
+                <div class="screen"></div>
+            </div>
+
+            <div id="seat-map" class="seat-map"></div>
+
+            <div class="legend">
+                <span class="seat available"></span> Available
+                <span class="seat selected"></span> Selected
+                <span class="seat reserved"></span> Reserved
+            </div>
+
+            <div id="booking-summary" class="hidden">
+                <h4>Booking Summary</h4>
+                <p>Selected Seats: <span id="summary-seats">None</span></p>
+
+                <form id="booking-form" onsubmit="app.submitBooking(event)">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Confirm Booking</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Confirmation View -->
+        <section id="booking-confirmation-view" class="hidden">
+            <div class="confirmation-card">
+                <h2>Booking Confirmed!</h2>
+                <div id="confirmation-details"></div>
+                <button onclick="app.showMovieList()">Return Home</button>
+            </div>
+        </section>
+
+        <!-- My Bookings View -->
+        <section id="my-bookings-view" class="hidden">
+            <h2>My Bookings</h2>
+            <div id="booking-lookup">
+                <p>Enter your email to view your tickets:</p>
+                <form onsubmit="app.lookupBookings(event)" style="margin-bottom: 30px; display: flex; gap: 10px;">
+                    <input type="email" id="lookup-email" placeholder="your@email.com" required
+                        style="padding: 10px; border-radius: 4px; border: 1px solid #333; background: #1f1f1f; color: white; flex: 1; max-width: 300px;">
+                    <button type="submit" class="btn-primary">Search</button>
+                </form>
+            </div>
+            <div id="bookings-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MovieTickets. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
